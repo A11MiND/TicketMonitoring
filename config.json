@@ -1,25 +1,26 @@
 {
   "proxy": null,
   "token": {
-    "my": "登陆小程序后抓包获取token"
+    "my": "登陆小程序后抓包获取token",
+    "uutix": "登陆UUTIX网站后抓包获取token"
   },
   "monitor_list": [
     {
-      "show_id": "374212",
-      "show_name": "banG",
+      "show_id": "209362",
+      "show_name": "【萬事達優先購】2025英雄聯盟全球總決賽冠亞軍決賽",
       "platform": 1,
-      "deadline": "2025-02-15 00:00:00"
+      "deadline": "2025-10-10 00:00:00"
     },
     {
-      "show_id": "379615",
-      "show_name": "测试",
-      "platform": 1,
-      "deadline": "2025-02-15 00:00:00"
+      "show_id": "3079",
+      "show_name": "UUTIX演出示例",
+      "platform": 4,
+      "deadline": "2025-12-31 23:59:59"
     }
   ],
   "notice":{
-    "email": "xx@qq.com",
+    "email": "your_email@gmail.com",
     "interval_sec": 300,
-    "SMTP": "hahaha"
+    "SMTP": "ticket reservation monitor"
   }
 }

@@ -31,8 +31,27 @@ class MY(Monitor):
     def get_show_infos(self):
         show_id = self.show_info.get('show_id')
         response = requests.post(f"https://wx.maoyan.com/my/odea/project/shows?token={self.token}&clientPlatform=2", json={"projectId":show_id}, headers=MY.headers(), proxies=self._proxy)
-        show_info = response.json().get("data")
-        for session in show_info.get("showListVO"):
+        response_data = response.json()
+        
+        # 检查API响应是否成功
+        if not response_data.get("success", False):
+            error_msg = response_data.get("error", {}).get("message", "未知错误")
+            logging.error(f"猫眼API请求失败: {error_msg}")
+            if "登录" in error_msg:
+                logging.error("请检查config.json中的my token是否正确配置")
+            raise Exception(f"猫眼API请求失败: {error_msg}")
+        
+        show_info = response_data.get("data")
+        if show_info is None:
+            logging.error("猫眼API返回的data字段为空")
+            raise Exception("猫眼API返回的data字段为空")
+            
+        show_list = show_info.get("showListVO")
+        if show_list is None:
+            logging.error("猫眼API返回的showListVO字段为空")
+            raise Exception("猫眼API返回的showListVO字段为空")
+            
+        for session in show_list:
             session_id = session.get("showId")
             session_name = session.get("showName")
             self.show_info["session_info"].append({
@@ -81,4 +100,5 @@ class MY(Monitor):
             'x-wxa-page': 'pages/showsubs/ticket-level/v2/index',
             'Referer': 'https://servicewechat.com/wxdbb4c5f1b8ee7da1/1557/page-frame.html',
             'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_5_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 MicroMessenger/8.0.53(0x18003531) NetType/WIFI Language/zh_CN',
+            'Cookie': 'logan_session_token=8kyabcrhiehudecu5rfv; my_lpl_token=MY_e5j2Qf6EUI9LL_juoyMlAL2wp94AAAAw7zwxfcSsYEVGc6d1mFpx31QmLaWejtpevjlUTbm7H2Kwks3Rs3ByRTumnHptJD03AAAAiAAAAAEB',
         }

@@ -9,10 +9,11 @@ from Monitor_DM import DM
 from Monitor_FWD import FWD
 from Monitor_MY import MY
 from Monitor_PXQ import PXQ
+from Monitor_UUTIX import UUTIX
 from email_notifier import EmailNotifier
 
 
-def get_task(show: dict) -> Union[DM, MY, FWD, PXQ, None]:
+def get_task(show: dict) -> Union[DM, MY, FWD, PXQ, UUTIX, None]:
     if show.get("platform") == 0:
         return DM(show)
     elif show.get("platform") == 1:
@@ -21,6 +22,8 @@ def get_task(show: dict) -> Union[DM, MY, FWD, PXQ, None]:
         return FWD(show)
     elif show.get("platform") == 3:
         return PXQ(show)
+    elif show.get("platform") == 4:
+        return UUTIX(show)
     else:
         return None
 

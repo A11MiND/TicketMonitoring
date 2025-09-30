@@ -28,5 +28,5 @@ class Monitor:
         if time() - self.__last_alert_time < 10:
             return
         self.__last_alert_time = time()
-        for key in ["BARK_PUSH_KEY"]:   # 此处列表填充Bark的key，如果没有Bark则注释这两行代码，添加您自定义的提醒方式
+        for key in ["AfsDRgrncHn54cfBvyzArf"]:  # 此处列表填充Bark的key，如果没有Bark则注释这两行代码，添加您自定义的提醒方式
             requests.get(f"https://api.day.app/{key}/{content}")
